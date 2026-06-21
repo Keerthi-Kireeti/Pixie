@@ -1,0 +1,24 @@
+[package]
+name = "pixie"
+version = "0.1.0"
+description = "Pixie - A floating desktop AI companion"
+authors = ["Pixie Team"]
+license = "MIT"
+repository = ""
+default-run = "pixie"
+edition = "2021"
+rust-version = "1.60"
+
+[build-dependencies]
+tauri-build = { version = "1.5", features = [] }
+
+[dependencies]
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+tauri = { version = "1.5", features = ["shell-open", "window-all"] }
+tokio = { version = "1", features = ["full"] }
+reqwest = { version = "0.11", features = ["json"] }
+
+[features]
+default = ["custom-protocol"]
+custom-protocol = ["tauri/custom-protocol"]

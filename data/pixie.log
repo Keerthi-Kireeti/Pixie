@@ -1,0 +1,6 @@
+2026-06-18 16:46:25,067 - backend.main - INFO - Ollama Host: http://localhost:11434
+2026-06-18 16:46:25,067 - backend.main - INFO - Database: ./data/pixie.db
+2026-06-21 22:28:57,397 - backend.main - INFO - Ollama Host: http://localhost:11434
+2026-06-21 22:28:57,397 - backend.main - INFO - Database: ./data/pixie.db
+2026-06-21 22:42:31,703 - backend.main - INFO - Ollama Host: http://localhost:11434
+2026-06-21 22:42:31,703 - backend.main - INFO - Database: ./data/pixie.db

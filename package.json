@@ -1,0 +1,38 @@
+{
+  "name": "pixie-desktop",
+  "version": "0.1.0",
+  "description": "Pixie - A floating desktop AI companion",
+  "author": "Pixie Team",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently \"npm run frontend:dev\" \"npm run backend:dev\" \"npm run tauri:dev\"",
+    "frontend:dev": "vite",
+    "frontend:build": "vite build",
+    "backend:dev": ".\\venv\\Scripts\\python.exe -m uvicorn backend.main:app --reload --host 127.0.0.1 --port 8000",
+    "backend:install": ".\\venv\\Scripts\\python.exe -m pip install -r backend/requirements.txt",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build",
+    "preview": "vite preview",
+    "lint": "eslint src",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^1.5.3",
+    "@tauri-apps/cli": "^1.5.10",
+    "pixi.js": "^8.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@vitejs/plugin-react": "^4.0.0",
+    "concurrently": "^8.0.0",
+    "eslint": "^8.0.0",
+    "typescript": "^5.0.0",
+    "vite": "^4.5.0"
+  }
+}

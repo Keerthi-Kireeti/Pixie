@@ -1,0 +1,35 @@
+# Pixie Backend - Python Requirements
+# Install with: pip install -r requirements.txt
+
+# Web Framework
+fastapi==0.104.1
+uvicorn==0.24.0
+pydantic==2.5.0
+pydantic-settings==2.1.0
+
+# HTTP Client
+httpx==0.25.2
+requests==2.31.0
+
+# Database
+sqlalchemy==2.0.23
+alembic==1.13.0
+
+# AI/ML
+ollama==0.1.6
+
+# Utilities
+python-dotenv==1.0.0
+python-multipart==0.0.6
+
+# Reminders & Scheduling
+APScheduler==3.10.4
+
+# Logging
+python-json-logger==2.0.7
+
+# Development
+pytest==7.4.3
+black==23.12.0
+flake8==6.1.0
+mypy==1.7.1
