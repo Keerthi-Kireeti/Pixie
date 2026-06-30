@@ -12,14 +12,31 @@
   z-index: 100;
 }
 
+.pixie-window.chat-closed {
+  justify-content: center;
+  align-items: center;
+}
+
+.pixie-window.chat-open {
+  justify-content: flex-end; /* Push content to bottom */
+}
+
 .pixie-click-zone {
   cursor: grab;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px;
+  padding: 5px;
   border-radius: 50%;
   transition: background-color 0.3s;
+  z-index: 1005;
+}
+
+.pixie-window.chat-open .pixie-click-zone {
+  position: absolute;
+  bottom: 0px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .pixie-click-zone:hover {
@@ -33,7 +50,6 @@
 /* Context Menu */
 .pixie-context-menu {
   position: absolute;
-  bottom: 80px;
   background: rgba(20, 15, 35, 0.9);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(167, 139, 250, 0.3);
@@ -46,6 +62,18 @@
   z-index: 2000;
   min-width: 120px;
   animation: fadeInScale 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pixie-window.chat-closed .pixie-context-menu {
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.pixie-window.chat-open .pixie-context-menu {
+  bottom: 180px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 @keyframes fadeInScale {

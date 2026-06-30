@@ -76,7 +76,7 @@ export default function ChatBubble({ isOpen, onClose }: ChatBubbleProps) {
           </button>
           <button
             onClick={() => {
-              setIsOpen(false)
+              onClose()
               setAnimationState('idle')
             }}
             className="chat-close"
