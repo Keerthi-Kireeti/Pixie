@@ -4,8 +4,12 @@ import { useAnimationState } from '@/hooks/useAnimationState'
 import { resetChat } from '@/services/api'
 import './ChatBubble.css'
 
-export default function ChatBubble() {
-  const [isOpen, setIsOpen] = useState(false)
+interface ChatBubbleProps {
+  isOpen: boolean
+  onClose: () => void
+}
+
+export default function ChatBubble({ isOpen, onClose }: ChatBubbleProps) {
   const [inputValue, setInputValue] = useState('')
   const { messages, sendMessage, isLoading, error, clearMessages } = usePixieChat()
   const { setAnimationState } = useAnimationState()
@@ -50,22 +54,7 @@ export default function ChatBubble() {
   }
 
   if (!isOpen) {
-    return (
-      <div className="chat-bubble-trigger">
-        <button
-          onClick={() => {
-            setIsOpen(true)
-            setAnimationState('listening')
-          }}
-          className="chat-toggle"
-          id="pixie-chat-toggle"
-          title="Chat with Pixie"
-        >
-          <span className="chat-toggle-icon">💬</span>
-          <span className="chat-toggle-pulse"></span>
-        </button>
-      </div>
-    )
+    return null
   }
 
   return (

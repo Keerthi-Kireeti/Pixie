@@ -1,53 +1,108 @@
 .app-container {
   width: 100%;
   height: 100%;
-  background: transparent;
+  background: transparent !important;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   user-select: none;
   -webkit-user-select: none;
+  position: relative;
 }
 
-.error-screen {
+/* Status Banners */
+.status-banner {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+  text-align: center;
+  z-index: 10000;
+  backdrop-filter: blur(12px);
+  max-width: 90%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.status-error {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.status-warning {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+@keyframes slideDown {
+  from { transform: translate(-50%, -20px); opacity: 0; }
+  to { transform: translate(-50%, 0); opacity: 1; }
+}
+
+/* Loading Screen */
+.loading-screen {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: rgba(20, 20, 30, 0.95);
-  color: #ff6b6b;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  padding: 20px;
-  text-align: center;
+  background: radial-gradient(circle at center, #181227 0%, #0e0a17 100%);
+  color: #ffffff;
 }
 
-.error-screen h1 {
-  font-size: 24px;
-  margin-bottom: 10px;
+.loading-pixie {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-.error-screen p {
+.loading-glow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(167, 139, 250, 0.2);
+  filter: blur(15px);
+  animation: loadingGlowPulse 1.5s infinite alternate;
+}
+
+.loading-emoji {
+  font-size: 40px;
+  z-index: 2;
+  animation: loadingFloat 1.5s infinite alternate;
+}
+
+.loading-text {
   font-size: 14px;
-  opacity: 0.8;
-  max-width: 300px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 1px;
+  animation: loadingTextPulse 1.5s infinite alternate;
 }
 
-.dev-mode-banner {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  background: rgba(255, 193, 7, 0.15);
-  color: #ffc107;
-  font-size: 11px;
-  padding: 4px 12px;
-  text-align: center;
-  z-index: 20000;
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(255, 193, 7, 0.3);
-  pointer-events: none;
+@keyframes loadingGlowPulse {
+  0% { transform: scale(0.8); opacity: 0.5; }
+  100% { transform: scale(1.3); opacity: 1; }
 }
 
+@keyframes loadingFloat {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-10px); }
+}
+
+@keyframes loadingTextPulse {
+  0% { opacity: 0.5; }
+  100% { opacity: 1; }
+}

@@ -14,3 +14,22 @@
 2026-06-30 10:52:44,864 - backend.brain.ollama - INFO - Sending prompt to Ollama (mistral)...
 2026-06-30 10:52:47,103 - httpx - INFO - HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 404 Not Found"
 2026-06-30 10:52:47,103 - backend.brain.ollama - ERROR - Ollama error: HTTP 404
+2026-06-30 12:01:42,446 - backend.main - INFO - [START] Pixie Backend Starting...
+2026-06-30 12:01:42,447 - backend.main - INFO - Ollama Host: http://localhost:11434
+2026-06-30 12:01:42,447 - backend.main - INFO - Database: ./data/pixie.db
+2026-06-30 12:03:00,208 - httpx - INFO - HTTP Request: GET http://localhost:11434/api/tags "HTTP/1.1 200 OK"
+2026-06-30 12:03:02,484 - httpx - INFO - HTTP Request: GET http://localhost:11434/api/tags "HTTP/1.1 200 OK"
+2026-06-30 12:03:04,777 - httpx - INFO - HTTP Request: GET http://localhost:11434/api/tags "HTTP/1.1 200 OK"
+2026-06-30 12:04:41,676 - httpx - INFO - HTTP Request: GET http://localhost:11434/api/tags "HTTP/1.1 200 OK"
+2026-06-30 12:04:44,020 - httpx - INFO - HTTP Request: GET http://localhost:11434/api/tags "HTTP/1.1 200 OK"
+2026-06-30 12:05:29,459 - backend.memory.store - INFO - Created conversation 2
+2026-06-30 12:05:29,468 - backend.brain.ollama - INFO - Sending prompt to Ollama (llama2)...
+2026-06-30 12:06:05,683 - httpx - INFO - HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-06-30 12:06:05,688 - backend.brain.ollama - INFO - Response generated in 36.22s
+2026-06-30 12:34:28,459 - backend.main - INFO - [START] Pixie Backend Starting...
+2026-06-30 12:34:28,459 - backend.main - INFO - Ollama Host: http://localhost:11434
+2026-06-30 12:34:28,459 - backend.main - INFO - Database: ./data/pixie.db
+2026-06-30 12:36:17,844 - httpx - INFO - HTTP Request: GET http://localhost:11434/api/tags "HTTP/1.1 200 OK"
+2026-06-30 12:36:20,146 - httpx - INFO - HTTP Request: GET http://localhost:11434/api/tags "HTTP/1.1 200 OK"
+2026-06-30 12:38:02,028 - httpx - INFO - HTTP Request: GET http://localhost:11434/api/tags "HTTP/1.1 200 OK"
+2026-06-30 12:38:04,693 - httpx - INFO - HTTP Request: GET http://localhost:11434/api/tags "HTTP/1.1 200 OK"
