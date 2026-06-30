@@ -1,28 +1,40 @@
 {
   "build": {
-    "beforeDevCommand": "npm run frontend:dev",
-    "beforeBuildCommand": "npm run frontend:build",
+    "beforeDevCommand": "",
+    "beforeBuildCommand": "node node_modules/vite/bin/vite.js build",
     "devPath": "http://localhost:5173",
     "distDir": "../dist"
   },
   "tauri": {
+    "allowlist": {
+      "all": false,
+      "shell": {
+        "open": true
+      },
+      "window": {
+        "all": true
+      }
+    },
     "windows": [
       {
         "title": "Pixie",
         "label": "main",
-        "width": 200,
-        "height": 250,
-        "resizable": false,
+        "width": 400,
+        "height": 500,
+        "minWidth": 300,
+        "minHeight": 400,
+        "resizable": true,
         "fullscreen": false,
         "transparent": true,
         "alwaysOnTop": true,
         "decorations": false,
         "skipTaskbar": false,
-        "hiddenTitle": true
+        "hiddenTitle": true,
+        "center": true
       }
     ],
     "security": {
-      "csp": null
+      "csp": "default-src 'self'; connect-src 'self' http://localhost:8000 http://127.0.0.1:8000; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:"
     },
     "bundle": {
       "active": true,

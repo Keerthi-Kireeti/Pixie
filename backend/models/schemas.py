@@ -57,7 +57,7 @@ class ReminderResponse(BaseModel):
     title: str
     description: Optional[str]
     scheduled_time: str
-    created_at: datetime
+    created_at: str
     is_completed: bool
 
 

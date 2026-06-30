@@ -1,0 +1,9 @@
+# Pyrefly configuration for Pixie project
+# Points type checker to Python 3.14 where packages are installed
+
+python-interpreter-path = "C:\\Python314\\python.exe"
+search_path = [
+    ".",
+    "C:\\Python314\\Lib\\site-packages",
+    "C:\\Users\\keert\\AppData\\Roaming\\Python\\Python314\\site-packages",
+]

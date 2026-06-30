@@ -1,58 +1,426 @@
-.pixie-character-container {
+/* ─── Pixie Character ─────────────────────────────────── */
+
+.pixie-character {
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: 160px;
+  height: 180px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  filter: drop-shadow(0 0 20px rgba(167, 139, 250, 0.3));
 }
 
-.pixie-character-container:hover {
-  transform: scale(1.05);
+.pixie-character:hover {
+  transform: scale(1.08);
+  filter: drop-shadow(0 0 30px rgba(167, 139, 250, 0.5));
 }
 
-.pixie-canvas {
-  width: 100%;
-  height: 100%;
-  background: transparent;
-}
+/* ─── Wings ───────────────────────────────────────────── */
 
-.pixie-state-indicator {
+.pixie-wings {
   position: absolute;
-  bottom: 10px;
+  top: 20px;
+  width: 140px;
+  height: 100px;
+  z-index: 1;
+}
+
+.wing {
+  position: absolute;
+  width: 50px;
+  height: 70px;
+  border-radius: 50% 50% 50% 20%;
+  background: linear-gradient(
+    135deg,
+    rgba(167, 139, 250, 0.4) 0%,
+    rgba(139, 92, 246, 0.2) 50%,
+    rgba(196, 181, 253, 0.1) 100%
+  );
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  backdrop-filter: blur(4px);
+  transform-origin: bottom center;
+}
+
+.wing-left {
+  left: 8px;
+  transform: rotate(-20deg);
+  animation: wingFlutterLeft 1.2s ease-in-out infinite;
+}
+
+.wing-right {
+  right: 8px;
+  border-radius: 50% 50% 20% 50%;
+  transform: rotate(20deg);
+  animation: wingFlutterRight 1.2s ease-in-out infinite;
+}
+
+@keyframes wingFlutterLeft {
+  0%, 100% { transform: rotate(-20deg) scaleY(1); }
+  50% { transform: rotate(-30deg) scaleY(0.9); }
+}
+
+@keyframes wingFlutterRight {
+  0%, 100% { transform: rotate(20deg) scaleY(1); }
+  50% { transform: rotate(30deg) scaleY(0.9); }
+}
+
+/* ─── Body ────────────────────────────────────────────── */
+
+.pixie-body {
+  position: relative;
+  z-index: 2;
+  animation: pixieFloat 3s ease-in-out infinite;
+}
+
+@keyframes pixieFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* ─── Head ────────────────────────────────────────────── */
+
+.pixie-head {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(
+    180deg,
+    #c4b5fd 0%,
+    #a78bfa 30%,
+    #8b5cf6 100%
+  );
+  position: relative;
+  box-shadow:
+    inset 0 -4px 8px rgba(0, 0, 0, 0.15),
+    inset 0 4px 8px rgba(255, 255, 255, 0.15),
+    0 4px 20px rgba(139, 92, 246, 0.3);
+}
+
+/* ─── Crown / Antenna ─────────────────────────────────── */
+
+.pixie-crown {
+  position: absolute;
+  top: -18px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 10px;
-  opacity: 0.5;
+  z-index: 3;
+}
+
+.crown-gem {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fbbf24, #f59e0b);
+  box-shadow: 0 0 12px rgba(251, 191, 36, 0.8), 0 0 24px rgba(251, 191, 36, 0.4);
+  animation: gemGlow 2s ease-in-out infinite;
+}
+
+@keyframes gemGlow {
+  0%, 100% { box-shadow: 0 0 12px rgba(251, 191, 36, 0.8), 0 0 24px rgba(251, 191, 36, 0.4); }
+  50% { box-shadow: 0 0 20px rgba(251, 191, 36, 1), 0 0 40px rgba(251, 191, 36, 0.6); }
+}
+
+/* ─── Eyes ─────────────────────────────────────────────── */
+
+.pixie-eyes {
+  position: absolute;
+  top: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 16px;
+}
+
+.eye {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #1e1b4b;
+  position: relative;
+  animation: eyeBlink 4s ease-in-out infinite;
+}
+
+.pupil {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: white;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  animation: pupilShine 3s ease-in-out infinite;
+}
+
+@keyframes eyeBlink {
+  0%, 42%, 48%, 100% { transform: scaleY(1); }
+  45% { transform: scaleY(0.1); }
+}
+
+@keyframes pupilShine {
+  0%, 100% { transform: translate(0, 0); }
+  30% { transform: translate(1px, -1px); }
+  60% { transform: translate(-1px, 0); }
+}
+
+/* ─── Mouth ───────────────────────────────────────────── */
+
+.pixie-mouth {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 6px;
+  border-bottom: 2.5px solid #4c1d95;
+  border-radius: 0 0 50% 50%;
+  transition: all 0.3s ease;
+}
+
+/* ─── Blush ───────────────────────────────────────────── */
+
+.pixie-blush {
+  position: absolute;
+  bottom: 24px;
+  width: 12px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(244, 114, 182, 0.4);
+  opacity: 0.7;
+}
+
+.blush-left { left: 10px; }
+.blush-right { right: 10px; }
+
+/* ─── Sparkles ────────────────────────────────────────── */
+
+.pixie-sparkles {
+  position: absolute;
+  inset: -20px;
   pointer-events: none;
-  white-space: nowrap;
+  z-index: 0;
 }
 
-/* State-specific styling */
-.pixie-canvas.state-thinking {
-  filter: brightness(1.1);
+.sparkle {
+  position: absolute;
+  font-size: 14px;
+  color: rgba(251, 191, 36, 0.8);
+  animation: sparkleFloat 3s ease-in-out infinite;
+  text-shadow: 0 0 6px rgba(251, 191, 36, 0.5);
 }
 
-.pixie-canvas.state-happy {
-  filter: drop-shadow(0 0 10px #ffeb3b);
+.s1 { top: 10%; left: 5%; animation-delay: 0s; font-size: 10px; }
+.s2 { top: 5%; right: 10%; animation-delay: 0.5s; font-size: 12px; }
+.s3 { bottom: 30%; left: 0%; animation-delay: 1s; font-size: 8px; }
+.s4 { top: 40%; right: 0%; animation-delay: 1.5s; font-size: 14px; }
+.s5 { bottom: 10%; right: 15%; animation-delay: 2s; font-size: 10px; }
+.s6 { bottom: 5%; left: 20%; animation-delay: 2.5s; font-size: 12px; }
+
+@keyframes sparkleFloat {
+  0%, 100% { opacity: 0; transform: translateY(0) scale(0.5); }
+  20% { opacity: 1; transform: translateY(-8px) scale(1); }
+  80% { opacity: 0.5; transform: translateY(-16px) scale(0.8); }
 }
 
-.pixie-canvas.state-sleeping {
-  filter: brightness(0.8);
+/* ─── State: Idle (default) ──────────────────────────── */
+
+.pixie-state-idle .pixie-body {
+  animation: pixieFloat 3s ease-in-out infinite;
 }
 
-.pixie-canvas.state-idle {
-  animation: idle-breathing 3s ease-in-out infinite;
+/* ─── State: Thinking ─────────────────────────────────── */
+
+.pixie-state-thinking .pixie-head {
+  background: linear-gradient(180deg, #ddd6fe 0%, #c4b5fd 30%, #a78bfa 100%);
 }
 
-@keyframes idle-breathing {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.02);
-  }
+.pixie-state-thinking .crown-gem {
+  animation: gemGlow 0.6s ease-in-out infinite;
+}
+
+.pixie-state-thinking .pixie-body {
+  animation: pixieThink 1.5s ease-in-out infinite;
+}
+
+.pixie-state-thinking .eye {
+  animation: none;
+  transform: scaleY(0.8);
+}
+
+.pixie-state-thinking .pupil {
+  animation: pupilThink 1s ease-in-out infinite;
+}
+
+@keyframes pixieThink {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-3px) rotate(2deg); }
+  75% { transform: translateY(-3px) rotate(-2deg); }
+}
+
+@keyframes pupilThink {
+  0%, 100% { transform: translate(0, -2px); }
+  50% { transform: translate(2px, -2px); }
+}
+
+.thinking-dots {
+  position: absolute;
+  top: -5px;
+  right: -15px;
+  display: flex;
+  gap: 3px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #fbbf24;
+  text-shadow: 0 0 8px rgba(251, 191, 36, 0.6);
+}
+
+.thinking-dots span {
+  animation: dotBounce 1.4s ease-in-out infinite;
+}
+
+.thinking-dots span:nth-child(2) { animation-delay: 0.2s; }
+.thinking-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dotBounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-8px); opacity: 1; }
+}
+
+/* ─── State: Happy ────────────────────────────────────── */
+
+.pixie-state-happy .pixie-body {
+  animation: pixieHappy 0.5s ease-in-out infinite;
+}
+
+.pixie-state-happy .pixie-mouth {
+  width: 16px;
+  height: 10px;
+  border-bottom: 3px solid #4c1d95;
+  border-radius: 0 0 50% 50%;
+}
+
+.pixie-state-happy .pixie-blush {
+  opacity: 1;
+  background: rgba(244, 114, 182, 0.6);
+}
+
+.pixie-state-happy .eye {
+  transform: scaleY(0.5);
+  animation: none;
+}
+
+.pixie-state-happy .sparkle {
+  color: rgba(244, 114, 182, 0.9);
+  animation-duration: 1.5s;
+}
+
+@keyframes pixieHappy {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-10px) rotate(3deg); }
+  75% { transform: translateY(-10px) rotate(-3deg); }
+}
+
+/* ─── State: Listening ────────────────────────────────── */
+
+.pixie-state-listening .eye {
+  width: 16px;
+  height: 16px;
+  animation: none;
+}
+
+.pixie-state-listening .pupil {
+  width: 8px;
+  height: 8px;
+}
+
+.pixie-state-listening .pixie-body {
+  animation: pixieListen 2s ease-in-out infinite;
+}
+
+.pixie-state-listening .wing {
+  animation-duration: 0.6s;
+}
+
+@keyframes pixieListen {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-4px) scale(1.03); }
+}
+
+/* ─── State: Sleeping ─────────────────────────────────── */
+
+.pixie-state-sleeping .pixie-body {
+  animation: pixieSleep 4s ease-in-out infinite;
+}
+
+.pixie-state-sleeping .eye {
+  transform: scaleY(0.1);
+  animation: none;
+}
+
+.pixie-state-sleeping .pixie-mouth {
+  width: 8px;
+  height: 8px;
+  border: none;
+  border-radius: 50%;
+  background: #4c1d95;
+}
+
+.pixie-state-sleeping .wing {
+  animation-duration: 3s;
+}
+
+.pixie-state-sleeping .sparkle {
+  opacity: 0.2;
+}
+
+.pixie-state-sleeping .pixie-head {
+  filter: brightness(0.85);
+}
+
+@keyframes pixieSleep {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+
+.sleeping-zzz {
+  position: absolute;
+  top: -10px;
+  right: -20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.sleeping-zzz span {
+  color: rgba(167, 139, 250, 0.7);
+  font-weight: bold;
+  font-style: italic;
+  animation: zzzFloat 2s ease-in-out infinite;
+}
+
+.sleeping-zzz span:nth-child(1) { font-size: 10px; animation-delay: 0s; }
+.sleeping-zzz span:nth-child(2) { font-size: 13px; animation-delay: 0.3s; transform: translateX(5px); }
+.sleeping-zzz span:nth-child(3) { font-size: 16px; animation-delay: 0.6s; transform: translateX(10px); }
+
+@keyframes zzzFloat {
+  0%, 100% { opacity: 0; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-10px); }
+}
+
+/* ─── State: Walking ──────────────────────────────────── */
+
+.pixie-state-walking .pixie-body {
+  animation: pixieWalk 0.4s ease-in-out infinite;
+}
+
+.pixie-state-walking .wing {
+  animation-duration: 0.3s;
+}
+
+@keyframes pixieWalk {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  25% { transform: translateY(-4px) translateX(2px); }
+  75% { transform: translateY(-4px) translateX(-2px); }
 }

@@ -1,38 +1,76 @@
-export interface Reminder {
-  id?: number
-  title: string
-  description?: string
-  time: string
-  completed?: boolean
-}
-
-// Helper to safely invoke Tauri commands, with fallback for browser-only dev mode
-async function tauriInvoke<T>(command: string, args?: Record<string, unknown>): Promise<T> {
-  try {
-    const { invoke } = await import('@tauri-apps/api/tauri')
-    return await invoke<T>(command, args)
-  } catch {
-    console.warn(`[Pixie] Tauri not available. Command "${command}" mocked.`)
-    throw new Error('Tauri runtime not available — reminders require the desktop app')
-  }
-}
+import { useState, useCallback, useEffect } from 'react'
+import {
+  listReminders,
+  createReminder,
+  completeReminder,
+  deleteReminder,
+  type Reminder,
+  type CreateReminderRequest,
+} from '@/services/api'
 
 export function useReminders() {
-  const createReminder = async (reminder: Reminder) => {
+  const [reminders, setReminders] = useState<Reminder[]>([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  const fetchReminders = useCallback(async () => {
     try {
-      const response = await tauriInvoke('pixie_reminder', {
-        title: reminder.title,
-        time: reminder.time,
-        description: reminder.description,
-      })
-      return response
-    } catch (error) {
-      console.error('Failed to create reminder:', error)
-      throw error
+      setIsLoading(true)
+      const data = await listReminders()
+      setReminders(data)
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Failed to fetch reminders'
+      setError(msg)
+      console.error('Reminders fetch error:', err)
+    } finally {
+      setIsLoading(false)
     }
-  }
+  }, [])
+
+  const addReminder = useCallback(async (data: CreateReminderRequest) => {
+    try {
+      const newReminder = await createReminder(data)
+      setReminders((prev) => [...prev, newReminder])
+      return newReminder
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Failed to create reminder'
+      setError(msg)
+      throw err
+    }
+  }, [])
+
+  const markComplete = useCallback(async (id: number) => {
+    try {
+      await completeReminder(id)
+      setReminders((prev) =>
+        prev.map((r) => (r.id === id ? { ...r, is_completed: true } : r))
+      )
+    } catch (err) {
+      console.error('Failed to complete reminder:', err)
+    }
+  }, [])
+
+  const removeReminder = useCallback(async (id: number) => {
+    try {
+      await deleteReminder(id)
+      setReminders((prev) => prev.filter((r) => r.id !== id))
+    } catch (err) {
+      console.error('Failed to delete reminder:', err)
+    }
+  }, [])
+
+  // Fetch reminders on mount
+  useEffect(() => {
+    fetchReminders()
+  }, [fetchReminders])
 
   return {
-    createReminder,
+    reminders,
+    isLoading,
+    error,
+    addReminder,
+    markComplete,
+    removeReminder,
+    refreshReminders: fetchReminders,
   }
 }

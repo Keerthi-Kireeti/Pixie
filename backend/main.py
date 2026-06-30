@@ -34,13 +34,13 @@ async def lifespan(app: FastAPI):
     """
     Lifespan context manager for startup/shutdown events
     """
-    logger.info("🚀 Pixie Backend Starting...")
+    logger.info("[START] Pixie Backend Starting...")
     logger.info(f"Ollama Host: {settings.ollama_host}")
     logger.info(f"Database: {settings.database_path}")
 
     yield  # App runs here
 
-    logger.info("🛑 Pixie Backend Shutting Down...")
+    logger.info("[STOP] Pixie Backend Shutting Down...")
 
 
 # Create FastAPI app

@@ -4,3 +4,13 @@
 2026-06-21 22:28:57,397 - backend.main - INFO - Database: ./data/pixie.db
 2026-06-21 22:42:31,703 - backend.main - INFO - Ollama Host: http://localhost:11434
 2026-06-21 22:42:31,703 - backend.main - INFO - Database: ./data/pixie.db
+2026-06-30 10:47:58,211 - backend.main - INFO - Ollama Host: http://localhost:11434
+2026-06-30 10:47:58,211 - backend.main - INFO - Database: ./data/pixie.db
+2026-06-30 10:49:28,705 - backend.main - INFO - [START] Pixie Backend Starting...
+2026-06-30 10:49:28,705 - backend.main - INFO - Ollama Host: http://localhost:11434
+2026-06-30 10:49:28,706 - backend.main - INFO - Database: ./data/pixie.db
+2026-06-30 10:50:06,086 - httpx - INFO - HTTP Request: GET http://localhost:11434/api/tags "HTTP/1.1 200 OK"
+2026-06-30 10:52:44,859 - backend.memory.store - INFO - Created conversation 1
+2026-06-30 10:52:44,864 - backend.brain.ollama - INFO - Sending prompt to Ollama (mistral)...
+2026-06-30 10:52:47,103 - httpx - INFO - HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 404 Not Found"
+2026-06-30 10:52:47,103 - backend.brain.ollama - ERROR - Ollama error: HTTP 404

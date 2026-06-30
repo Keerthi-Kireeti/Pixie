@@ -1,24 +1,25 @@
 import { useEffect, useState } from 'react'
 import { AnimationStateProvider } from '@/hooks/useAnimationState'
 import PixieWindow from '@components/PixieWindow'
+import { checkHealth, type HealthStatus } from '@/services/api'
 import './App.css'
 
 function App() {
   const [isReady, setIsReady] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [health, setHealth] = useState<HealthStatus | null>(null)
+  const [connectionError, setConnectionError] = useState(false)
 
   useEffect(() => {
-    // Initialize Tauri and check backend connection
     const initApp = async () => {
       try {
-        const { invoke } = await import('@tauri-apps/api/tauri')
-        const status = await invoke('pixie_status')
-        console.log('Pixie status:', status)
-        setIsReady(true)
+        // Check backend health directly via HTTP
+        const status = await checkHealth()
+        setHealth(status)
+        console.log('Pixie backend status:', status)
       } catch (err) {
-        console.warn('Tauri not available or backend not running:', err)
-        setError('Running in browser dev mode — Tauri/backend not connected.')
-        // Still allow app to load for frontend development
+        console.warn('Backend not reachable:', err)
+        setConnectionError(true)
+      } finally {
         setIsReady(true)
       }
     }
@@ -28,18 +29,27 @@ function App() {
 
   if (!isReady) {
     return (
-      <div className="error-screen">
-        <h1>⏳ Loading Pixie...</h1>
+      <div className="loading-screen" id="pixie-loading">
+        <div className="loading-pixie">
+          <div className="loading-glow"></div>
+          <span className="loading-emoji">✨</span>
+        </div>
+        <p className="loading-text">Waking up Pixie...</p>
       </div>
     )
   }
 
   return (
     <AnimationStateProvider>
-      <div className="app-container">
-        {error && (
-          <div className="dev-mode-banner">
-            ⚠️ {error}
+      <div className="app-container" id="pixie-app">
+        {connectionError && (
+          <div className="status-banner status-error" id="pixie-status-banner">
+            Backend not connected — start the server with: python -m uvicorn backend.main:app --reload
+          </div>
+        )}
+        {health && !health.ollama && !connectionError && (
+          <div className="status-banner status-warning" id="pixie-ollama-warning">
+            Ollama not running — AI chat won't work
           </div>
         )}
         <PixieWindow />
